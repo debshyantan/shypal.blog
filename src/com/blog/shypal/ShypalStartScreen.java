@@ -27,7 +27,7 @@ public class ShypalStartScreen extends Activity {
 		}, 3000);
 		
 		
-		
+//		
 		
 	}
 }

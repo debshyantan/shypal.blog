@@ -5,7 +5,7 @@ public class Constant {
 	int micon;
 	
 	String myurl="http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5";
-	
+//	
 //	String myurl="http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true";
 
 

@@ -23,7 +23,7 @@ public class ConnectionDetector {
                       {
                           return true;
                       }
- 
+// 
           }
           return false;
     }

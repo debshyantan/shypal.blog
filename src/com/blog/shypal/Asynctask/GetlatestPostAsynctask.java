@@ -27,7 +27,7 @@ import com.blog.shypal.R;
 
 public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		implements AnimationListener
-
+//
 {
 	FragmentActivity activity;
 	ImageView iv;

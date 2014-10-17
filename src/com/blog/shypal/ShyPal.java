@@ -24,7 +24,7 @@ public class ShyPal extends ActionBarActivity implements
 	static Boolean isInternetPresent = false;
 	ConnectionDetector cd;
 	
-	
+//	
 
 	
 	private NavigationDrawerFragment mNavigationDrawerFragment;

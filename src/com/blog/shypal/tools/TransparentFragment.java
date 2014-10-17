@@ -14,7 +14,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 
 public class TransparentFragment extends Fragment implements AnimationListener {
-
+//
 	ImageView iv;
 	// Animation
 	Animation animRotate;
