@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="unspecified" >
+        <source path="E:\Android\ProjectWorkspace-windows\ShyPal\build\intermediates\exploded-aar\ProjectWorkspace-windows\android-support-v7-appcompat\unspecified\assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="E:\Android\ProjectWorkspace-windows\ShyPal\assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="E:\Android\ProjectWorkspace-windows\ShyPal\build-types\debug\assets" />
+    </dataSet>
+
+</merger>

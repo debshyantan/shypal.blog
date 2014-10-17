@@ -2,12 +2,39 @@
 <resources>
 
     <string name="app_name">ShyPal</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+
+    
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer">
+        <item>APPS</item>
+        <item>BIKES</item>
+        <item>CARS</item>
+        <item>ENTERTAINMENT</item>
+        <item>INTERNET</item>
+        <item>LAPTOP</item>
+        <item>MOBILE</item>
+        <item>TABLETS</item>
+        <item>TELECOM</item>
+    </string-array>
+    
+     <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/apps</item>
+        <item>@drawable/bikes</item>
+        <item>@drawable/cars</item>
+        <item>@drawable/entertainments</item>
+        <item>@drawable/internet</item>
+        <item>@drawable/latops</item>
+        <item>@drawable/mobiles</item>
+        <item>@drawable/tablets</item>
+        <item>@drawable/telecom</item>
+    </array>
+    
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
-
+    <!-- <string name="action_example">Example action</string> -->
+<!--     <string name="action_settings">Settings</string>
+ -->
 </resources>

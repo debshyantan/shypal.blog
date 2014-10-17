@@ -1,42 +1,44 @@
 package com.blog.shypal;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.blog.shypal.Asynctask.GetlatestPostAsynctask;
+import com.blog.shypal.tools.ConnectionDetector;
 
 public class ShyPal extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+	
+	static Boolean isInternetPresent = false;
+	ConnectionDetector cd;
+	
+	
 
-	/**
-	 * Fragment managing the behaviors, interactions and presentation of the
-	 * navigation drawer.
-	 */
+	
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
+	
 	private CharSequence mTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
+		System.out.println("<----You are at Activity ---->");
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -45,6 +47,17 @@ public class ShyPal extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		//connection checking
+		cd = new ConnectionDetector(getApplicationContext());
+		isInternetPresent = cd.isConnectingToInternet();
+		System.out.println("Network states:" + isInternetPresent);
+	
+		
+		
+		
+		
+		
 	}
 
 	@Override
@@ -59,15 +72,16 @@ public class ShyPal extends ActionBarActivity implements
 
 	public void onSectionAttached(int number) {
 		switch (number) {
-		case 1:
-			mTitle = getString(R.string.title_section1);
-			break;
-		case 2:
-			mTitle = getString(R.string.title_section2);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_section3);
-			break;
+//		case 1:
+//			Toast.makeText(this, "Apps", Toast.LENGTH_LONG).show();
+//			mTitle = getString(R.string.title_section1);
+//			break;
+//		case 2:
+//			mTitle = getString(R.string.title_section2);
+//			break;
+//		case 3:
+//			mTitle = getString(R.string.title_section3);
+//			break;
 		}
 	}
 
@@ -93,29 +107,22 @@ public class ShyPal extends ActionBarActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+		
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+//		if (id == R.id.action_settings) {
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
+	
 	public static class PlaceholderFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
+		
 		private static final String ARG_SECTION_NUMBER = "section_number";
+		
+		ImageView iv;
 
-		/**
-		 * Returns a new instance of this fragment for the given section number.
-		 */
+		
 		public static PlaceholderFragment newInstance(int sectionNumber) {
 			PlaceholderFragment fragment = new PlaceholderFragment();
 			Bundle args = new Bundle();
@@ -132,6 +139,21 @@ public class ShyPal extends ActionBarActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			 iv=(ImageView)rootView.findViewById(R.id.imageView1);
+			
+			if (isInternetPresent) {
+			
+			new GetlatestPostAsynctask(getActivity(),iv).execute();
+			
+			}
+			
+			else{
+				Toast.makeText(getActivity(), "No Internet Connection!", Toast.LENGTH_SHORT).show();
+				getActivity().finish();
+				
+			}
+			
+			
 			return rootView;
 		}
 
@@ -141,6 +163,9 @@ public class ShyPal extends ActionBarActivity implements
 			((ShyPal) activity).onSectionAttached(getArguments().getInt(
 					ARG_SECTION_NUMBER));
 		}
+		
 	}
+
+	
 
 }
