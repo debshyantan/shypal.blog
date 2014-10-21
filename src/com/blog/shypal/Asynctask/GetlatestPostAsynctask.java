@@ -1,6 +1,7 @@
 package com.blog.shypal.Asynctask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -14,7 +15,6 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -23,11 +23,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.blog.shypal.Constant;
+import com.blog.shypal.Custom;
 import com.blog.shypal.R;
+import com.blog.shypal.adapter.HomePageAdapter;
+import com.etsy.android.grid.StaggeredGridView;
+
+
 
 public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		implements AnimationListener
-//
 {
 	FragmentActivity activity;
 	ImageView iv;
@@ -37,13 +41,17 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 	HttpResponse resp = null;
 	String value = null;
 	JSONArray posts;
+	StaggeredGridView mGridView;
+	HomePageAdapter homePageadpter;
+	ArrayList<Custom> listdata;
 
 	String title, featured_image, category;
 
-	public GetlatestPostAsynctask(FragmentActivity activity, ImageView iv) {
+	public GetlatestPostAsynctask(FragmentActivity activity, ImageView iv, StaggeredGridView mGridView) {
 
 		this.activity = activity;
 		this.iv = iv;
+		this.mGridView=mGridView;
 	}
 
 	@Override
@@ -56,6 +64,8 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		// set animation listener
 		animRotate.setAnimationListener(this);
 		iv.startAnimation(animRotate);
+
+		listdata=new ArrayList<Custom>();
 
 	}
 
@@ -94,9 +104,13 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
-
-					Log.d("title", title);
-					Log.d("featured_image", featured_image);
+					
+					System.out.println("Title--->" +title);
+					System.out.println("featured_image--->" +featured_image);
+					
+					
+					
+					listdata.add(new Custom(title,featured_image));
 
 				}
 
@@ -115,7 +129,12 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		// pd.dismiss();
-
+		
+	
+		
+		
+		
+		
 		if (value != null) {
 
 			activity.runOnUiThread(new Runnable() {
@@ -126,6 +145,13 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 					iv.clearAnimation();
 
 					iv.setVisibility(View.GONE);
+					
+					mGridView.setVisibility(View.VISIBLE);
+					homePageadpter=new HomePageAdapter(listdata,activity,mGridView);
+					mGridView.setAdapter(homePageadpter);
+					
+					
+					
 
 				}
 			});

@@ -17,9 +17,12 @@ import android.widget.Toast;
 
 import com.blog.shypal.Asynctask.GetlatestPostAsynctask;
 import com.blog.shypal.tools.ConnectionDetector;
+import com.etsy.android.grid.StaggeredGridView;
 
 public class ShyPal extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+	
+	    static StaggeredGridView mGridView;
 	
 	static Boolean isInternetPresent = false;
 	ConnectionDetector cd;
@@ -140,10 +143,10 @@ public class ShyPal extends ActionBarActivity implements
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
 			 iv=(ImageView)rootView.findViewById(R.id.imageView1);
-			
+			 mGridView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
 			if (isInternetPresent) {
 			
-			new GetlatestPostAsynctask(getActivity(),iv).execute();
+			new GetlatestPostAsynctask(getActivity(),iv,mGridView).execute();
 			
 			}
 			

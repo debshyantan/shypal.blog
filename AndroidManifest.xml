@@ -17,7 +17,8 @@
         android:theme="@style/Theme.Shypal" >
         <activity
             android:name=".ShyPal"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity android:name="com.blog.shypal.ShypalStartScreen" >
             <intent-filter>
