@@ -3,11 +3,21 @@ package com.blog.shypal;
 public class Constant {
 	String mtitle;
 	int micon;
-	
-	String myurl="http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=10";
-//	
-//	String myurl="http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true";
 
+	String myurl = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5";
+	String HomeURlwithOffset = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5&offset=";
+	String categoryUrl = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5&category=";
+
+	
+	public String getHomeURlwithOffset() {
+		return HomeURlwithOffset;
+	}
+	
+	public String getCategoryUrl(String categorySlug) {
+
+		categoryUrl = categoryUrl + categorySlug;
+		return categoryUrl;
+	}
 
 	public String getMyurl() {
 		return myurl;

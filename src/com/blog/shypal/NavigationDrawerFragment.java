@@ -106,6 +106,12 @@ public class NavigationDrawerFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				 Toast.makeText(getActivity(),""+ position, Toast.LENGTH_LONG).show();
+				 
+				 if(position==1){
+					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("apps")).addToBackStack(null).commit();   
+					 
+				 }
 				
 			}
 			 

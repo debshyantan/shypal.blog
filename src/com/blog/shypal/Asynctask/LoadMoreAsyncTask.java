@@ -13,28 +13,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blog.shypal.Constant;
 import com.blog.shypal.Custom;
+import com.blog.shypal.HomePageFragment;
 import com.blog.shypal.R;
 import com.blog.shypal.adapter.HomePageAdapter;
 import com.etsy.android.grid.StaggeredGridView;
 
-public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
-		implements AnimationListener {
+public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
+	long offset;
 	FragmentActivity activity;
-	ImageView iv;
-	// Animation
-	Animation animRotate;
+
 	int flag;
 	HttpResponse resp = null;
 	String value = null;
@@ -42,39 +39,43 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 	StaggeredGridView mGridView;
 	HomePageAdapter homePageadpter;
 	ArrayList<Custom> listdata;
-	String title, featured_image, category;
-	
+	RelativeLayout loadmorelayout;
+	View myfooter;
 
-	public GetlatestPostAsynctask(FragmentActivity activity, ImageView iv,
+	String title, featured_image, category, found;
+
+	public LoadMoreAsyncTask(long offset, FragmentActivity activity,
 			StaggeredGridView mGridView, ArrayList<Custom> listdata) {
-
 		this.activity = activity;
-		this.iv = iv;
+		this.offset = offset;
 		this.mGridView = mGridView;
 		this.listdata = listdata;
-		
+
 	}
 
 	@Override
 	protected void onPreExecute() {
+
 		super.onPreExecute();
-
-		iv.setVisibility(View.VISIBLE);
-
-		animRotate = AnimationUtils.loadAnimation(activity, R.anim.rotate);
-		// set animation listener
-		animRotate.setAnimationListener(this);
-		iv.startAnimation(animRotate);
-	
+		
+		
+		//	adding the footer
+		myfooter = View.inflate(activity, R.layout.loadmorefooter, null);
+		loadmorelayout = (RelativeLayout) myfooter.findViewById(R.id.loadmorelayout);
+		mGridView.addFooterView(myfooter);
+		System.out.println("offset---->" + offset);
+		
 		// listdata=new ArrayList<Custom>();
-
 	}
 
 	@Override
 	protected Void doInBackground(Void... params) {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpGet get = new HttpGet(new Constant().getMyurl());
+		String url = new Constant().getHomeURlwithOffset() + offset;
+		System.out.println(url);
+		HttpGet get = new HttpGet(new Constant().getHomeURlwithOffset()
+				+ offset);
 		try {
 			resp = client.execute(get);
 		} catch (IOException e) {
@@ -96,13 +97,13 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		if (value != null) {
 			try {
 				JSONObject jsonObj = new JSONObject(value);
-
+				found=jsonObj.getString("found");
 				posts = jsonObj.getJSONArray("posts");
-				System.out.println("posts----->" + posts);
+				System.out.println("Load More Post----->" + posts);
 
 				for (int i = 0; i < posts.length(); i++) {
 					JSONObject c = posts.getJSONObject(i);
-
+					
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
 
@@ -127,7 +128,6 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 	protected void onPostExecute(Void result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		// pd.dismiss();
 
 		if (value != null) {
 
@@ -135,16 +135,21 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 
 				@Override
 				public void run() {
-
-					iv.clearAnimation();
-
-					iv.setVisibility(View.GONE);
-
-					mGridView.setVisibility(View.VISIBLE);
-					homePageadpter = new HomePageAdapter(listdata, activity,
-							mGridView);
-					mGridView.setAdapter(homePageadpter);
-
+					
+					if(found.equals("0")){
+						Toast.makeText(activity,"No More Articles !",Toast.LENGTH_LONG).show();
+					}
+				
+					else {
+						homePageadpter = new HomePageAdapter(listdata, activity,mGridView);
+						mGridView.setAdapter(homePageadpter);
+						HomePageFragment.setftrvalue(0);
+						
+						//removing the loading more footer after the asynctask
+						mGridView.removeFooterView(myfooter);
+					}
+					
+					
 				}
 			});
 
@@ -154,24 +159,6 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 					Toast.LENGTH_LONG).show();
 			activity.finish();
 		}
-
-	}
-
-	@Override
-	public void onAnimationEnd(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
 
 	}
 

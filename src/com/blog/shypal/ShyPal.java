@@ -1,34 +1,14 @@
 package com.blog.shypal;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.blog.shypal.Asynctask.GetlatestPostAsynctask;
-import com.blog.shypal.tools.ConnectionDetector;
-import com.etsy.android.grid.StaggeredGridView;
-
-public class ShyPal extends ActionBarActivity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks {
-	
-	    static StaggeredGridView mGridView;
-	
-	static Boolean isInternetPresent = false;
-	ConnectionDetector cd;
-	
-//	
-
+public class ShyPal extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 	
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -40,8 +20,7 @@ public class ShyPal extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		
-		System.out.println("<----You are at Activity ---->");
+	
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -50,16 +29,6 @@ public class ShyPal extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
-		//connection checking
-		cd = new ConnectionDetector(getApplicationContext());
-		isInternetPresent = cd.isConnectingToInternet();
-		System.out.println("Network states:" + isInternetPresent);
-	
-		
-		
-		
-		
 		
 	}
 
@@ -70,7 +39,7 @@ public class ShyPal extends ActionBarActivity implements
 		fragmentManager
 				.beginTransaction()
 				.replace(R.id.container,
-						PlaceholderFragment.newInstance(position + 1)).commit();
+						HomePageFragment.newInstance(position + 1)).commit();
 	}
 
 	public void onSectionAttached(int number) {
@@ -119,56 +88,7 @@ public class ShyPal extends ActionBarActivity implements
 	}
 
 	
-	public static class PlaceholderFragment extends Fragment {
-		
-		private static final String ARG_SECTION_NUMBER = "section_number";
-		
-		ImageView iv;
-
-		
-		public static PlaceholderFragment newInstance(int sectionNumber) {
-			PlaceholderFragment fragment = new PlaceholderFragment();
-			Bundle args = new Bundle();
-			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			 iv=(ImageView)rootView.findViewById(R.id.imageView1);
-			 mGridView = (StaggeredGridView) rootView.findViewById(R.id.grid_view);
-			if (isInternetPresent) {
-			
-			new GetlatestPostAsynctask(getActivity(),iv,mGridView).execute();
-			
-			}
-			
-			else{
-				Toast.makeText(getActivity(), "No Internet Connection!", Toast.LENGTH_SHORT).show();
-				getActivity().finish();
-				
-			}
-			
-			
-			return rootView;
-		}
-
-		@Override
-		public void onAttach(Activity activity) {
-			super.onAttach(activity);
-			((ShyPal) activity).onSectionAttached(getArguments().getInt(
-					ARG_SECTION_NUMBER));
-		}
-		
-	}
-
+	
 	
 
 }

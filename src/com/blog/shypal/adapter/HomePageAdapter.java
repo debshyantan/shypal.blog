@@ -72,10 +72,11 @@ public class HomePageAdapter extends BaseAdapter{
 		
 		Picasso.with(activity)
         .load(listdata.get(position).getFeatured_image())
-        
-        .resize(300	, 350)
+//        .fit()
+        .resize(150	, 200)
 //        .centerCrop()
 //        .centerInside()
+        
         .into(holder.featured_image);
 			
 			holder.title.setText(listdata.get(position).getTitle());
@@ -91,5 +92,5 @@ public class HomePageAdapter extends BaseAdapter{
 		TextView title;
 		ImageView featured_image;
 	}
-
+	
 }
