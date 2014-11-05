@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -20,13 +21,13 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blog.shypal.Constant;
 import com.blog.shypal.Custom;
 import com.blog.shypal.R;
 import com.blog.shypal.adapter.HomePageAdapter;
+import com.blog.shypal.tools.CustomToast;
 import com.etsy.android.grid.StaggeredGridView;
 
 public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
@@ -42,7 +43,7 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 	StaggeredGridView mGridView;
 	HomePageAdapter homePageadpter;
 	ArrayList<Custom> listdata;
-	String title, featured_image, category;
+	String title, featured_image, category,avatar_URL;
 	
 
 	public GetlatestPostAsynctask(FragmentActivity activity, ImageView iv,
@@ -65,9 +66,11 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 		// set animation listener
 		animRotate.setAnimationListener(this);
 		iv.startAnimation(animRotate);
-	
-		// listdata=new ArrayList<Custom>();
+		
+//	Toast.makeText(activity, "Wait while Load Recent Articles", Toast.LENGTH_LONG).show();
 
+		String toast=activity.getResources().getString(R.string.customToastText);
+		new CustomToast(toast,activity, R.drawable.loadingicon);
 	}
 
 	@Override
@@ -98,18 +101,20 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 				JSONObject jsonObj = new JSONObject(value);
 
 				posts = jsonObj.getJSONArray("posts");
-				System.out.println("posts----->" + posts);
+				
 
 				for (int i = 0; i < posts.length(); i++) {
 					JSONObject c = posts.getJSONObject(i);
-
+					
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
-
+					JSONObject author=c.getJSONObject("author");
+					 avatar_URL=author.getString("avatar_URL");
+						
 					System.out.println("Title--->" + title);
 					System.out.println("featured_image--->" + featured_image);
 
-					listdata.add(new Custom(title, featured_image));
+					listdata.add(new Custom(title, featured_image,avatar_URL));
 
 				}
 
@@ -125,9 +130,8 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 
 	@Override
 	protected void onPostExecute(Void result) {
-		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		// pd.dismiss();
+		
 
 		if (value != null) {
 

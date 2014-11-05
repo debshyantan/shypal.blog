@@ -2,6 +2,7 @@ package com.blog.shypal;
 
 import java.util.ArrayList;
 
+import android.R.interpolator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blog.shypal.Asynctask.GetlatestPostAsynctask;
 import com.blog.shypal.Asynctask.LoadMoreAsyncTask;
 import com.blog.shypal.tools.ConnectionDetector;
+import com.blog.shypal.tools.CustomToast;
 import com.etsy.android.grid.StaggeredGridView;
 
 public class HomePageFragment extends Fragment implements
@@ -35,8 +36,6 @@ public class HomePageFragment extends Fragment implements
 	int found = 0;
 	static int ftr = 0;
 
-	
-
 	public static HomePageFragment newInstance(int sectionNumber) {
 		HomePageFragment fragment = new HomePageFragment();
 		Bundle args = new Bundle();
@@ -50,7 +49,7 @@ public class HomePageFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
-
+		 ShyPal.setActionBarTitle("SHYPAL");
 		listdata = new ArrayList<Custom>();
 
 		// connection checking
@@ -70,11 +69,17 @@ public class HomePageFragment extends Fragment implements
 		}
 
 		else {
-			Toast.makeText(getActivity(), "No Internet Connection!",
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getActivity(), "No Internet Connection!",
+//					Toast.LENGTH_SHORT).show();
+			
+			String toast=getActivity().getResources().getString(R.string.nointernet);
+			new CustomToast(toast,getActivity(), R.drawable.nointernetconnection);
+			
 			getActivity().finish();
 
 		}
+		
+
 
 		mGridView.setOnScrollListener(this);
 		mGridView.setOnItemClickListener(this);
@@ -99,38 +104,8 @@ public class HomePageFragment extends Fragment implements
 	@Override
 	public void onScroll(final AbsListView view, final int firstVisibleItem,
 			final int visibleItemCount, final int totalItemCount) {
-		
-	}
 
-	// private void onLoadMoreItems() {
-	// System.out.println("offset---->"+offset);
-	// offset = offset + 5;
-	// System.out.println("offset---->"+offset);
-	// loadMoreAsyntask=null;
-	// loadMoreAsyntask = new LoadMoreAsyncTask(offset, getActivity(),
-	// mGridView,listdata);
-	// Toast.makeText(getActivity(), "Wait Guyz",
-	// Toast.LENGTH_SHORT).show();
-	// System.out.println(loadMoreAsyntask.getStatus());
-	//
-	// if (loadMoreAsyntask.getStatus() == AsyncTask.Status.RUNNING) {
-	// Toast.makeText(getActivity(), "Getting Updates...",
-	// Toast.LENGTH_SHORT).show();
-	//
-	// } else if (loadMoreAsyntask.getStatus() == AsyncTask.Status.PENDING) {
-	//
-	// loadMoreAsyntask.execute();
-	// } else if (loadMoreAsyntask.getStatus() == AsyncTask.Status.FINISHED)
-	//
-	// {
-	// loadMoreAsyntask = null;
-	//
-	// loadMoreAsyntask.execute();
-	// }
-	//
-	// // mHasRequestedMore = false;
-	//
-	// }
+	}
 
 	@Override
 	public void onScrollStateChanged(final AbsListView view,
@@ -140,17 +115,33 @@ public class HomePageFragment extends Fragment implements
 		found = listdata.size();
 		Log.e("Count", " " + i);
 		if (mGridView.getLastVisiblePosition() >= i - 1) {
-			// if (found > 0)
-			// {
+
 			if (ftr == 0) {
 				ftr = 1;
 				System.out.println("offset---->" + offset);
 
 				offset = offset + 5;
 				System.out.println("offset---->" + offset);
-				new LoadMoreAsyncTask(offset, getActivity(), mGridView,
-						listdata).execute();
-				// }
+
+				if (isInternetPresent) {
+					
+					try {
+						
+					
+					new LoadMoreAsyncTask(offset, getActivity(), mGridView,
+							listdata).execute();
+					
+					} catch (Exception e) {
+						Toast.makeText(getActivity(), "SomeThing Went Wrong! Try Again Later",
+								Toast.LENGTH_SHORT).show();	
+						}
+
+				}else {
+					
+					getActivity().finish();
+
+				}
+
 			}
 		}
 
@@ -162,5 +153,7 @@ public class HomePageFragment extends Fragment implements
 
 		ftr = i;
 	}
+	
+	
 
 }

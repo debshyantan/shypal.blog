@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">ShyPal</string>
-
+ 	<string name="customToastText">Loading...</string>
+ 	<string name="customToastText2">Loading More Cool Articles...</string>
+ 	<string name="nointernet">No Internet Connection!</string>
     
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer">

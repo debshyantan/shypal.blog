@@ -7,8 +7,14 @@ public class Constant {
 	String myurl = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5";
 	String HomeURlwithOffset = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5&offset=";
 	String categoryUrl = "http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5&category=";
-
+	String categoryURLwithoffset="http://public-api.wordpress.com/rest/v1/sites/www.shypal.com/posts/?pretty=true&number=5&offset=";
 	
+	public String getCategoryURLwithoffset(Long offset,String categoryslug) {
+		
+		categoryURLwithoffset=categoryURLwithoffset+offset+"&category="+categoryslug;
+		return categoryURLwithoffset;
+	}
+
 	public String getHomeURlwithOffset() {
 		return HomeURlwithOffset;
 	}

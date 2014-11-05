@@ -17,26 +17,22 @@ import com.blog.shypal.R;
 import com.etsy.android.grid.StaggeredGridView;
 import com.squareup.picasso.Picasso;
 
-public class HomePageAdapter extends BaseAdapter{
-	
-	ArrayList<Custom> listdata;
+public class CategoryAdapter extends BaseAdapter{
+	ArrayList<Custom> categorylistdata;
 	FragmentActivity activity;
 	StaggeredGridView mGridView;
 
-	public HomePageAdapter(ArrayList<Custom> listdata,
+	public CategoryAdapter(ArrayList<Custom> categorylistdata,
 			FragmentActivity activity, StaggeredGridView mGridView) {
-		this.listdata=listdata;
 		this.activity=activity;
+		this.categorylistdata=categorylistdata;
 		this.mGridView=mGridView;
-	
-	
-	
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return listdata.size();
+		return categorylistdata.size();
 	}
 
 	@Override
@@ -58,10 +54,9 @@ public class HomePageAdapter extends BaseAdapter{
 			holder=new viewholder();
 		LayoutInflater inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		convertView = inflater.inflate(com.blog.shypal.R.layout.stageredlistviewelement, parent, false);
-		holder.title=(TextView)convertView.findViewById(R.id.textview);
-		holder.featured_image=(ImageView)convertView.findViewById(R.id.featuredImg);
-//		holder.avatar_URL=(ImageView)convertView.findViewById(R.id.authorImg);
+		convertView = inflater.inflate(com.blog.shypal.R.layout.categorystageredlistviewelement, parent, false);
+		holder.title=(TextView)convertView.findViewById(R.id.ctextview);
+		holder.featured_image=(ImageView)convertView.findViewById(R.id.cfeaturedImg);
 		
 		
 		convertView.setTag(holder);
@@ -69,26 +64,17 @@ public class HomePageAdapter extends BaseAdapter{
 		else {
 		holder=(viewholder)convertView.getTag();
 		}
-		//loading post features image
-		Picasso.with(activity).load(listdata.get(position).getFeatured_image()).resize(150	, 200)
 		
-     /* .fit()     
-        .centerCrop()
-        .centerInside()*/
-        .into(holder.featured_image);
-		
-		
-	//loading author Image	
-//		Picasso.with(activity)
-//        .load(listdata.get(position).getAvatar_URL())
-////        .fit()
-//        .resize(150	, 200)
+		Picasso.with(activity)
+        .load(categorylistdata.get(position).getFeatured_image())
+//        .fit()
+        .resize(150	, 200)
 //        .centerCrop()
 //        .centerInside()
         
-//        .into(holder.avatar_URL);
+        .into(holder.featured_image);
 			
-			holder.title.setText(Html.fromHtml(listdata.get(position).getTitle()));
+			holder.title.setText(Html.fromHtml(categorylistdata.get(position).getTitle()));
 
 //			holder.featured_image.setImageResource(R.drawable.ic_launcher);
 	
@@ -99,7 +85,7 @@ public class HomePageAdapter extends BaseAdapter{
 	}
 	class viewholder{
 		TextView title;
-		ImageView featured_image,avatar_URL;
+		ImageView featured_image;
 	}
-	
+
 }

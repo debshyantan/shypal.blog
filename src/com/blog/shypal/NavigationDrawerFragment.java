@@ -37,10 +37,10 @@ public class NavigationDrawerFragment extends Fragment {
 	private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
 	private NavigationDrawerCallbacks mCallbacks;
-//
+
 	private ActionBarDrawerToggle mDrawerToggle;
 
-	private DrawerLayout mDrawerLayout;
+	private static DrawerLayout mDrawerLayout;
 	private ListView mDrawerListView;
 	private View mFragmentContainerView;
 
@@ -105,19 +105,50 @@ public class NavigationDrawerFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
-				 Toast.makeText(getActivity(),""+ position, Toast.LENGTH_LONG).show();
 				 
-				 if(position==1){
-					 
+				 if(position==1){			 
 					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("apps")).addToBackStack(null).commit();   
-					 
+					 ShyPal.setActionBarTitle("SHYPAL :: APPS");
 				 }
-				
+				 if(position==2){					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("bikes")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: BIKES");
+				 }
+				 if(position==3){			 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("cars")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: CARS");
+				 }
+				 if(position==4){					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("entertainment")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: ENTERTAINMENT");
+				 }
+				 if(position==5){			 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("internet")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: INTERNET");
+				 }
+				 if(position==6){					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("laptop")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: LAPTOP");
+				 }
+				 if(position==7){			 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("mobile")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: MOBILE");
+				 }
+				 if(position==8){					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("tablets")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: TABLETS");
+				 }
+				 if(position==9){					 
+					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("telecom")).addToBackStack(null).commit();   
+					 ShyPal.setActionBarTitle("SHYPAL :: TELECOM");
+				 }
+				 
+				 
+				 mDrawerLayout.closeDrawers();
 			}
 			 
 		});
 	
-		
 
 
 		categoryAdapter = new MycategoryListAdapter(getActivity(),
@@ -134,31 +165,20 @@ public class NavigationDrawerFragment extends Fragment {
 				&& mDrawerLayout.isDrawerOpen(mFragmentContainerView);
 	}
 
-	/**
-	 * Users of this fragment must call this method to set up the navigation
-	 * drawer interactions.
-	 * 
-	 * @param fragmentId
-	 *            The android:id of this fragment in its activity's layout.
-	 * @param drawerLayout
-	 *            The DrawerLayout containing this fragment's UI.
-	 */
+	
 	public void setUp(int fragmentId, DrawerLayout drawerLayout) {
 		mFragmentContainerView = getActivity().findViewById(fragmentId);
 		mDrawerLayout = drawerLayout;
 
-		// set a custom shadow that overlays the main content when the drawer
-		// opens
+	
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
-		// set up the drawer's list view with items and click listener
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
 
-		// ActionBarDrawerToggle ties together the the proper interactions
-		// between the navigation drawer and the action bar app icon.
+	
 		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /* host Activity */
 		mDrawerLayout, /* DrawerLayout object */
 		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
@@ -170,8 +190,7 @@ public class NavigationDrawerFragment extends Fragment {
 					return;
 				}
 
-				getActivity().supportInvalidateOptionsMenu(); // calls
-																// onPrepareOptionsMenu()
+				getActivity().supportInvalidateOptionsMenu();
 			}
 
 			@Override
@@ -182,9 +201,7 @@ public class NavigationDrawerFragment extends Fragment {
 				}
 
 				if (!mUserLearnedDrawer) {
-					// The user manually opened the drawer; store this flag to
-					// prevent auto-showing
-					// the navigation drawer automatically in the future.
+				
 					mUserLearnedDrawer = true;
 					SharedPreferences sp = PreferenceManager
 							.getDefaultSharedPreferences(getActivity());
@@ -192,14 +209,11 @@ public class NavigationDrawerFragment extends Fragment {
 							.commit();
 				}
 
-				getActivity().supportInvalidateOptionsMenu(); // calls
-																// onPrepareOptionsMenu()
+				getActivity().supportInvalidateOptionsMenu(); 
 			}
 		};
 
-		// If the user hasn't 'learned' about the drawer, open it to introduce
-		// them to the drawer,
-		// per the navigation drawer design guidelines.
+		
 		if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
 			mDrawerLayout.openDrawer(mFragmentContainerView);
 		}
@@ -267,6 +281,7 @@ public class NavigationDrawerFragment extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -341,6 +356,7 @@ public class NavigationDrawerFragment extends Fragment {
 					parent, false);
 			tv = (TextView) convertView.findViewById(R.id.text);
 			iv = (ImageView) convertView.findViewById(R.id.icon);
+			
 
 			tv.setText(categorylist.get(position).getMtitle());
 			iv.setImageResource(categorylist.get(position).getMicon());
@@ -348,6 +364,13 @@ public class NavigationDrawerFragment extends Fragment {
 			return convertView;
 		}
 
+	}
+
+	
+	
+	public static void closethedrawer() {
+		 mDrawerLayout.closeDrawers();
+		
 	}
 
 }

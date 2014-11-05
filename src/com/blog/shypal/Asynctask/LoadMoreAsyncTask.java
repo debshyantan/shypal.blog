@@ -13,11 +13,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -26,6 +25,7 @@ import com.blog.shypal.Custom;
 import com.blog.shypal.HomePageFragment;
 import com.blog.shypal.R;
 import com.blog.shypal.adapter.HomePageAdapter;
+import com.blog.shypal.tools.CustomToast;
 import com.etsy.android.grid.StaggeredGridView;
 
 public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -42,7 +42,7 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 	RelativeLayout loadmorelayout;
 	View myfooter;
 
-	String title, featured_image, category, found;
+	String title, featured_image, category, found,avatar_URL;
 
 	public LoadMoreAsyncTask(long offset, FragmentActivity activity,
 			StaggeredGridView mGridView, ArrayList<Custom> listdata) {
@@ -63,9 +63,14 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 		myfooter = View.inflate(activity, R.layout.loadmorefooter, null);
 		loadmorelayout = (RelativeLayout) myfooter.findViewById(R.id.loadmorelayout);
 		mGridView.addFooterView(myfooter);
-		System.out.println("offset---->" + offset);
 		
-		// listdata=new ArrayList<Custom>();
+		System.out.println("offset---->" + offset);
+
+		
+		String toast=activity.getResources().getString(R.string.customToastText2);
+		new CustomToast(toast,activity, R.drawable.loadingicon);
+
+		
 	}
 
 	@Override
@@ -107,10 +112,13 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
 
+					JSONObject author=c.getJSONObject("author");
+					 avatar_URL=author.getString("avatar_URL");
+					 
 					System.out.println("Title--->" + title);
 					System.out.println("featured_image--->" + featured_image);
 
-					listdata.add(new Custom(title, featured_image));
+					listdata.add(new Custom(title, featured_image,avatar_URL));
 
 				}
 
@@ -138,6 +146,8 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 					
 					if(found.equals("0")){
 						Toast.makeText(activity,"No More Articles !",Toast.LENGTH_LONG).show();
+						mGridView.removeFooterView(myfooter);
+						
 					}
 				
 					else {
@@ -147,6 +157,7 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 						
 						//removing the loading more footer after the asynctask
 						mGridView.removeFooterView(myfooter);
+						
 					}
 					
 					

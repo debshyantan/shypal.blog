@@ -2,13 +2,22 @@ package com.blog.shypal;
 
 public class Custom {
 	String title;
-	String featured_image;
+	String featured_image,avatar_URL;
 
-	public Custom(String title, String featured_image) {
+	public Custom(String title, String featured_image, String avatar_URL) {
 		this.title=title;
 		this.featured_image=featured_image;
+		this.avatar_URL=avatar_URL;
 	
 	
+	}
+
+	public String getAvatar_URL() {
+		return avatar_URL;
+	}
+
+	public void setAvatar_URL(String avatar_URL) {
+		this.avatar_URL = avatar_URL;
 	}
 
 	public String getTitle() {

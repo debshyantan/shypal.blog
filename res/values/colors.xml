@@ -11,7 +11,9 @@
     <color name="green">#1cba48</color>
     <color name="blue">#0073b9</color>
     <color name="gray">#ff5a5b5f</color>
-    
+    <color name="drak_gray_bg">#C3C3C3</color>
+    <color name="light_gray_bg">#E5E5E5</color>
+    <color name="lignt_gray_bg2">#F9F9F9</color>
     <color name="blue_highlight">#990073b9</color>
     <color name="SHYPALBLUE">#B0C5E1</color>
 </resources>

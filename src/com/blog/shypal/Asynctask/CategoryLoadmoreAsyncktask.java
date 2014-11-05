@@ -13,8 +13,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.blog.shypal.CategoryFragment;
 import com.blog.shypal.Constant;
 import com.blog.shypal.Custom;
+import com.blog.shypal.HomePageFragment;
 import com.blog.shypal.R;
 import com.blog.shypal.adapter.CategoryAdapter;
 import com.blog.shypal.adapter.HomePageAdapter;
@@ -25,65 +27,66 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Animation.AnimationListener;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements AnimationListener{
+public class CategoryLoadmoreAsyncktask extends AsyncTask<Void , Void, Void> {
+	long offset;
 	FragmentActivity activity;
-	String categoryslug;
 
-	
-	ImageView iv;
-	// Animation
-	Animation animRotate;
 	int flag;
 	HttpResponse resp = null;
 	String value = null;
 	JSONArray posts;
 	StaggeredGridView mGridView;
 	CategoryAdapter categoryAdapter;
-	ArrayList<Custom> categorylistdata;	
+	ArrayList<Custom> categorylistdata;
+	RelativeLayout loadmorelayout;
+	View myfooter;
+	String categoryslug;
 
-	String title, featured_image, category,found,avatar_URL;
-	
-	public CategoryAsynctask(FragmentActivity activity, String categoryslug, ArrayList<Custom> categorylistdata, StaggeredGridView mGridView, ImageView iv) {
-	
-		this.activity=activity;
-	this.categoryslug=categoryslug;
-	this.mGridView=mGridView;
-	this.iv=iv;
-	this.categorylistdata=categorylistdata;
-	
+	String title, featured_image, category, found,avatar_URL;
+
+	public CategoryLoadmoreAsyncktask(long offset, FragmentActivity activity,
+			StaggeredGridView mGridView, ArrayList<Custom> categorylistdata, String categoryslug) {
+		this.activity = activity;
+		this.offset = offset;
+		this.mGridView = mGridView;
+		this.categorylistdata = categorylistdata;
+		this.categoryslug=categoryslug;
+
 	}
 
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
+
 		super.onPreExecute();
 		
-		iv.setVisibility(View.VISIBLE);
-
-		animRotate = AnimationUtils.loadAnimation(activity, R.anim.rotate);
-		// set animation listener
-		animRotate.setAnimationListener(this);
-		iv.startAnimation(animRotate);
-//		Toast.makeText(activity, "Wait While we Load the Data", Toast.LENGTH_LONG).show();
 		
-		String toast=activity.getResources().getString(R.string.customToastText);
+
+		
+		//	adding the footer
+		myfooter = View.inflate(activity, R.layout.loadmorefooter, null);
+		loadmorelayout = (RelativeLayout) myfooter.findViewById(R.id.loadmorelayout);
+		mGridView.addFooterView(myfooter);
+		
+		System.out.println("offset---->" + offset);
+		
+		String toast=activity.getResources().getString(R.string.customToastText2);
 		new CustomToast(toast,activity, R.drawable.loadingicon);
+
+		
+		
 	}
-	
+
 	@Override
 	protected Void doInBackground(Void... params) {
-		try {
-			
-		
 
 		HttpClient client = new DefaultHttpClient();
-		HttpGet get = new HttpGet(new Constant().getCategoryUrl(categoryslug));
+//		String url = new Constant().getHomeURlwithOffset() + offset;
+//		System.out.println(url);
+		System.out.println("category url with offset--->" +new Constant().getCategoryURLwithoffset(offset, categoryslug));
+		HttpGet get = new HttpGet(new Constant().getCategoryURLwithoffset(offset, categoryslug));
 		try {
 			resp = client.execute(get);
 		} catch (IOException e) {
@@ -106,23 +109,21 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 			try {
 				JSONObject jsonObj = new JSONObject(value);
 				found=jsonObj.getString("found");
-
 				posts = jsonObj.getJSONArray("posts");
-				
+//				System.out.println("Load More Post----->" + posts);
 
 				for (int i = 0; i < posts.length(); i++) {
 					JSONObject c = posts.getJSONObject(i);
-
+					
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
 					JSONObject author=c.getJSONObject("author");
 					 avatar_URL=author.getString("avatar_URL");
-//					System.out.println("Title--->" +title);
-//					System.out.println("featured_image--->" +featured_image);
-//					
-					
-					
-					categorylistdata.add(new Custom(title,featured_image,avatar_URL));
+					 
+//					System.out.println("Title--->" + title);
+//					System.out.println("featured_image--->" + featured_image);
+
+					categorylistdata.add(new Custom(title, featured_image,avatar_URL));
 
 				}
 
@@ -132,20 +133,14 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 			}
 
 		}
-		} catch (Exception e) {
-			Toast.makeText(activity,
-					"Oops! Something Went Wrong. Try Again Later",
-					Toast.LENGTH_LONG).show();
-		}
 
 		return null;
 	}
-	
+
 	@Override
 	protected void onPostExecute(Void result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		
 
 		if (value != null) {
 
@@ -153,16 +148,22 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 
 				@Override
 				public void run() {
-
-					iv.clearAnimation();
-
-					iv.setVisibility(View.GONE);
-
-					mGridView.setVisibility(View.VISIBLE);
-					categoryAdapter = new CategoryAdapter(categorylistdata, activity,
-							mGridView);
-					mGridView.setAdapter(categoryAdapter);
-
+					
+					if(found.equals("0")){
+						Toast.makeText(activity,"No More Articles !",Toast.LENGTH_LONG).show();
+						mGridView.removeFooterView(myfooter);
+					}
+				
+					else {
+						categoryAdapter = new CategoryAdapter(categorylistdata, activity,mGridView);
+						mGridView.setAdapter(categoryAdapter);
+						CategoryFragment.setftrvalue(0);
+						
+						//removing the loading more footer after the asynctask
+						mGridView.removeFooterView(myfooter);
+					}
+					
+					
 				}
 			});
 
@@ -173,25 +174,6 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 			activity.finish();
 		}
 
-	}
-	
-
-	@Override
-	public void onAnimationEnd(Animation arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAnimationRepeat(Animation arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAnimationStart(Animation arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -8,19 +8,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ShyPal extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-	
+public class ShyPal extends ActionBarActivity implements
+		NavigationDrawerFragment.NavigationDrawerCallbacks {
+
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 
-	
 	private CharSequence mTitle;
+	static ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-	
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -30,6 +29,7 @@ public class ShyPal extends ActionBarActivity implements NavigationDrawerFragmen
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
+
 	}
 
 	@Override
@@ -44,24 +44,39 @@ public class ShyPal extends ActionBarActivity implements NavigationDrawerFragmen
 
 	public void onSectionAttached(int number) {
 		switch (number) {
-//		case 1:
-//			Toast.makeText(this, "Apps", Toast.LENGTH_LONG).show();
-//			mTitle = getString(R.string.title_section1);
-//			break;
-//		case 2:
-//			mTitle = getString(R.string.title_section2);
-//			break;
-//		case 3:
-//			mTitle = getString(R.string.title_section3);
-//			break;
+		// case 1:
+		// Toast.makeText(this, "Apps", Toast.LENGTH_LONG).show();
+		// mTitle = getString(R.string.title_section1);
+		// break;
+		// case 2:
+		// mTitle = getString(R.string.title_section2);
+		// break;
+		// case 3:
+		// mTitle = getString(R.string.title_section3);
+		// break;
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		if (mNavigationDrawerFragment.isVisible()) {
+			NavigationDrawerFragment.closethedrawer();
+
+		}
+
+		else {
+			super.onBackPressed();
+
+		}
+
+	}
+
 	public void restoreActionBar() {
-		ActionBar actionBar = getSupportActionBar();
+		 actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(mTitle);
+		
 	}
 
 	@Override
@@ -79,16 +94,16 @@ public class ShyPal extends ActionBarActivity implements NavigationDrawerFragmen
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		int id = item.getItemId();
-//		if (id == R.id.action_settings) {
-//			return true;
-//		}
+		// if (id == R.id.action_settings) {
+		// return true;
+		// }
 		return super.onOptionsItemSelected(item);
 	}
 
-	
-	
-	
+	public static void setActionBarTitle(String Actiontitle) {
+		actionBar.setTitle(Actiontitle);
+	}
 
 }
