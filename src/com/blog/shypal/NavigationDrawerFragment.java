@@ -107,39 +107,40 @@ public class NavigationDrawerFragment extends Fragment {
 					long arg3) {
 				 
 				 if(position==1){			 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("apps")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("apps")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: APPS");
 				 }
 				 if(position==2){					 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("bikes")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("bikes")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: BIKES");
 				 }
 				 if(position==3){			 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("cars")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("cars")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: CARS");
 				 }
 				 if(position==4){					 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("entertainment")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("entertainment")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: ENTERTAINMENT");
 				 }
 				 if(position==5){			 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("internet")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("internet")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: INTERNET");
 				 }
 				 if(position==6){					 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("laptop")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("laptop")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: LAPTOP");
 				 }
 				 if(position==7){			 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("mobile")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("mobile")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: MOBILE");
 				 }
-				 if(position==8){					 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("tablets")).addToBackStack(null).commit();   
+				 if(position==8){		
+					 
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("tablets")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: TABLETS");
 				 }
 				 if(position==9){					 
-					 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoryFragment("telecom")).addToBackStack(null).commit();   
+					 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, new CategoryFragment("telecom")).commit();   
 					 ShyPal.setActionBarTitle("SHYPAL :: TELECOM");
 				 }
 				 

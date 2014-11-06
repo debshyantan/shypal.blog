@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.blog.shypal.Custom;
 import com.blog.shypal.R;
+import com.blog.shypal.animations.Techniques;
+import com.blog.shypal.animations.YoYo;
 import com.etsy.android.grid.StaggeredGridView;
 import com.squareup.picasso.Picasso;
 
@@ -28,9 +30,6 @@ public class HomePageAdapter extends BaseAdapter{
 		this.listdata=listdata;
 		this.activity=activity;
 		this.mGridView=mGridView;
-	
-	
-	
 	}
 
 	@Override
@@ -62,7 +61,9 @@ public class HomePageAdapter extends BaseAdapter{
 		holder.title=(TextView)convertView.findViewById(R.id.textview);
 		holder.featured_image=(ImageView)convertView.findViewById(R.id.featuredImg);
 //		holder.avatar_URL=(ImageView)convertView.findViewById(R.id.authorImg);
-		
+		YoYo.with(Techniques.DropOut)
+	    .duration(1000)
+	    .playOn(holder.title);
 		
 		convertView.setTag(holder);
 		}

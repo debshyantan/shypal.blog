@@ -24,9 +24,11 @@ public class CategoryAdapter extends BaseAdapter{
 
 	public CategoryAdapter(ArrayList<Custom> categorylistdata,
 			FragmentActivity activity, StaggeredGridView mGridView) {
+		
 		this.activity=activity;
 		this.categorylistdata=categorylistdata;
 		this.mGridView=mGridView;
+		
 	}
 
 	@Override

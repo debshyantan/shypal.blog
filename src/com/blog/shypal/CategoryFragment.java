@@ -1,10 +1,10 @@
 package com.blog.shypal;
 
 import java.util.ArrayList;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,14 +52,14 @@ AbsListView.OnScrollListener, AbsListView.OnItemClickListener{
 		View rootView = inflater.inflate(R.layout.categorylistview,
 				container, false);
 		
-		FragmentManager fm = getActivity().getSupportFragmentManager();
+//		FragmentManager fm = getActivity().getSupportFragmentManager();
 		
-		if(fm.getBackStackEntryCount()>1){
-			System.out.println("backstack count before--->"+fm.getBackStackEntryCount());
-			 fm.popBackStack();
-//				System.out.println("backstack count after--->"+fm.getBackStackEntryCount());
-
-		}
+//		if(fm.getBackStackEntryCount()>1){
+//			System.out.println("backstack count before--->"+fm.getBackStackEntryCount());
+//			 fm.popBackStack();
+////				System.out.println("backstack count after--->"+fm.getBackStackEntryCount());
+//
+//		}
 		
 
 		

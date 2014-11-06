@@ -13,22 +13,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.blog.shypal.CategoryFragment;
-import com.blog.shypal.Constant;
-import com.blog.shypal.Custom;
-import com.blog.shypal.HomePageFragment;
-import com.blog.shypal.R;
-import com.blog.shypal.adapter.CategoryAdapter;
-import com.blog.shypal.adapter.HomePageAdapter;
-import com.blog.shypal.tools.CustomToast;
-import com.etsy.android.grid.StaggeredGridView;
-
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.blog.shypal.CategoryFragment;
+import com.blog.shypal.Constant;
+import com.blog.shypal.Custom;
+import com.blog.shypal.R;
+import com.blog.shypal.adapter.CategoryAdapter;
+import com.blog.shypal.tools.CustomToast;
+import com.etsy.android.grid.StaggeredGridView;
 
 public class CategoryLoadmoreAsyncktask extends AsyncTask<Void , Void, Void> {
 	long offset;
@@ -61,10 +58,7 @@ public class CategoryLoadmoreAsyncktask extends AsyncTask<Void , Void, Void> {
 	protected void onPreExecute() {
 
 		super.onPreExecute();
-		
-		
-
-		
+	
 		//	adding the footer
 		myfooter = View.inflate(activity, R.layout.loadmorefooter, null);
 		loadmorelayout = (RelativeLayout) myfooter.findViewById(R.id.loadmorelayout);
