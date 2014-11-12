@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,19 @@ AbsListView.OnScrollListener, AbsListView.OnItemClickListener{
 			int position, long id) {
 		Toast.makeText(getActivity(), "Item Clicked: " + position,
 				Toast.LENGTH_SHORT).show();
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		
+		ft.setCustomAnimations(R.anim.popenter, R.anim.exit, R.anim.enter, R.anim.popexit);
+//		PostFragment newFragment = PostFragment.newInstance();
+		ft.replace(R.id.container, new PostFragment(categorylistdata.get(position).getTitle(),categorylistdata.get(position).getPosturl()));
+		ft.addToBackStack(null);
+		ft.commit();
+		
+		
+		
+//		getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostFragment(listdata.get(position).getTitle())).addToBackStack(null).commit();
+		
 	}
 
 	@Override

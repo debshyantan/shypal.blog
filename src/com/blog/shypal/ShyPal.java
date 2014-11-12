@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class ShyPal extends ActionBarActivity implements
@@ -15,12 +16,12 @@ public class ShyPal extends ActionBarActivity implements
 
 	private CharSequence mTitle;
 	static ActionBar actionBar;
-
+	String Actiontitle="SHYPAL";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		 actionBar = getSupportActionBar();
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
@@ -73,24 +74,28 @@ public class ShyPal extends ActionBarActivity implements
 	}
 
 	public void restoreActionBar() {
-		 actionBar = getSupportActionBar();
+		
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		if (!mNavigationDrawerFragment.isDrawerOpen()) {
-			// Only show items in the action bar relevant to this screen
-			// if the drawer is not showing. Otherwise, let the drawer
-			// decide what to show in the action bar.
-			getMenuInflater().inflate(R.menu.main, menu);
-			restoreActionBar();
-			return true;
-		}
-		return super.onCreateOptionsMenu(menu);
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+////		if (!mNavigationDrawerFragment.isDrawerOpen()) {
+////			// Only show items in the action bar relevant to this screen
+////			// if the drawer is not showing. Otherwise, let the drawer
+////			// decide what to show in the action bar.
+////			getMenuInflater().inflate(R.menu.main, menu);
+////			restoreActionBar();
+////			return true;
+////		}
+////		return super.onCreateOptionsMenu(menu);
+//		MenuInflater inflater = getMenuInflater();
+//	    inflater.inflate(R.menu.actionbarmenu, menu);
+//
+//	    return super.onCreateOptionsMenu(menu);
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -103,6 +108,7 @@ public class ShyPal extends ActionBarActivity implements
 	}
 
 	public static void setActionBarTitle(String Actiontitle) {
+		System.out.println("Action bar title ---->" + Actiontitle);
 		actionBar.setTitle(Actiontitle);
 	}
 

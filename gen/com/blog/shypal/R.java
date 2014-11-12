@@ -1209,39 +1209,40 @@ containing a value of this type.
         public static final int entertainment=0x7f020068;
         public static final int entertainments=0x7f020069;
         public static final int entertaintment=0x7f02006a;
-        public static final int ic_drawer=0x7f02006b;
-        public static final int ic_launcher=0x7f02006c;
-        public static final int internet=0x7f02006d;
-        public static final int latops=0x7f02006e;
-        public static final int list_focused_shypal=0x7f02006f;
-        public static final int list_pressed_shypal=0x7f020070;
-        public static final int loadingicon=0x7f020071;
-        public static final int logo=0x7f020072;
-        public static final int menu_dropdown_panel_shypal=0x7f020073;
-        public static final int mobiles=0x7f020074;
-        public static final int nointernetconnection=0x7f020075;
-        public static final int progress_bg_shypal=0x7f020076;
-        public static final int progress_horizontal_shypal=0x7f020077;
-        public static final int progress_primary_shypal=0x7f020078;
-        public static final int progress_secondary_shypal=0x7f020079;
-        public static final int selectable_background_shypal=0x7f02007a;
-        public static final int shypal=0x7f02007b;
-        public static final int spinner=0x7f02007c;
-        public static final int spinner_ab_default_shypal=0x7f02007d;
-        public static final int spinner_ab_disabled_shypal=0x7f02007e;
-        public static final int spinner_ab_focused_shypal=0x7f02007f;
-        public static final int spinner_ab_pressed_shypal=0x7f020080;
-        public static final int spinner_background_ab_shypal=0x7f020081;
-        public static final int tab_indicator_ab_shypal=0x7f020082;
-        public static final int tab_selected_focused_shypal=0x7f020083;
-        public static final int tab_selected_pressed_shypal=0x7f020084;
-        public static final int tab_selected_shypal=0x7f020085;
-        public static final int tab_unselected_focused_shypal=0x7f020086;
-        public static final int tab_unselected_pressed_shypal=0x7f020087;
-        public static final int tab_unselected_shypal=0x7f020088;
-        public static final int tablets=0x7f020089;
-        public static final int telecom=0x7f02008a;
-        public static final int toast_border=0x7f02008b;
+        public static final int ic_action_share=0x7f02006b;
+        public static final int ic_drawer=0x7f02006c;
+        public static final int ic_launcher=0x7f02006d;
+        public static final int internet=0x7f02006e;
+        public static final int latops=0x7f02006f;
+        public static final int list_focused_shypal=0x7f020070;
+        public static final int list_pressed_shypal=0x7f020071;
+        public static final int loadingicon=0x7f020072;
+        public static final int logo=0x7f020073;
+        public static final int menu_dropdown_panel_shypal=0x7f020074;
+        public static final int mobiles=0x7f020075;
+        public static final int nointernetconnection=0x7f020076;
+        public static final int progress_bg_shypal=0x7f020077;
+        public static final int progress_horizontal_shypal=0x7f020078;
+        public static final int progress_primary_shypal=0x7f020079;
+        public static final int progress_secondary_shypal=0x7f02007a;
+        public static final int selectable_background_shypal=0x7f02007b;
+        public static final int shypal=0x7f02007c;
+        public static final int spinner=0x7f02007d;
+        public static final int spinner_ab_default_shypal=0x7f02007e;
+        public static final int spinner_ab_disabled_shypal=0x7f02007f;
+        public static final int spinner_ab_focused_shypal=0x7f020080;
+        public static final int spinner_ab_pressed_shypal=0x7f020081;
+        public static final int spinner_background_ab_shypal=0x7f020082;
+        public static final int tab_indicator_ab_shypal=0x7f020083;
+        public static final int tab_selected_focused_shypal=0x7f020084;
+        public static final int tab_selected_pressed_shypal=0x7f020085;
+        public static final int tab_selected_shypal=0x7f020086;
+        public static final int tab_unselected_focused_shypal=0x7f020087;
+        public static final int tab_unselected_pressed_shypal=0x7f020088;
+        public static final int tab_unselected_shypal=0x7f020089;
+        public static final int tablets=0x7f02008a;
+        public static final int telecom=0x7f02008b;
+        public static final int toast_border=0x7f02008c;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1307,6 +1308,7 @@ containing a value of this type.
         public static final int search_plate=0x7f050036;
         public static final int search_src_text=0x7f050037;
         public static final int search_voice_btn=0x7f05003b;
+        public static final int share=0x7f050050;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
@@ -1391,8 +1393,9 @@ containing a value of this type.
         public static final int transparentfragent=0x7f030025;
     }
     public static final class menu {
-        public static final int global=0x7f0d0000;
-        public static final int main=0x7f0d0001;
+        public static final int actionbarmenu=0x7f0d0000;
+        public static final int global=0x7f0d0001;
+        public static final int main=0x7f0d0002;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

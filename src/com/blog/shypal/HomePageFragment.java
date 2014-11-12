@@ -49,7 +49,8 @@ public class HomePageFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main, container,
 				false);
-		 ShyPal.setActionBarTitle("SHYPAL");
+//		 ShyPal.setActionBarTitle("SHYPAL");
+		
 		listdata = new ArrayList<Custom>();
 
 		// connection checking
@@ -104,7 +105,7 @@ public class HomePageFragment extends Fragment implements
 		
 		ft.setCustomAnimations(R.anim.popenter, R.anim.exit, R.anim.enter, R.anim.popexit);
 //		PostFragment newFragment = PostFragment.newInstance();
-		ft.replace(R.id.container, new PostFragment(listdata.get(position).getTitle()));
+		ft.replace(R.id.container, new PostFragment(listdata.get(position).getTitle(),listdata.get(position).getPosturl()));
 		ft.addToBackStack(null);
 		// Start the animated transition.
 		ft.commit();

@@ -47,7 +47,7 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 	CategoryAdapter categoryAdapter;
 	ArrayList<Custom> categorylistdata;	
 
-	String title, featured_image, category,found,avatar_URL;
+	String title, featured_image, category,found, posturl, avatar_URL;
 	
 	public CategoryAsynctask(FragmentActivity activity, String categoryslug, ArrayList<Custom> categorylistdata, StaggeredGridView mGridView, ImageView iv) {
 	
@@ -115,6 +115,8 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
+					posturl = c.getString("URL");
+
 					JSONObject author=c.getJSONObject("author");
 					 avatar_URL=author.getString("avatar_URL");
 //					System.out.println("Title--->" +title);
@@ -122,7 +124,7 @@ public class CategoryAsynctask extends AsyncTask<Void, Void, Void> implements An
 //					
 					
 					
-					categorylistdata.add(new Custom(title,featured_image,avatar_URL));
+					categorylistdata.add(new Custom(title,featured_image,avatar_URL , posturl));
 
 				}
 

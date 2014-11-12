@@ -42,7 +42,7 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 	RelativeLayout loadmorelayout;
 	View myfooter;
 
-	String title, featured_image, category, found,avatar_URL;
+	String title, featured_image, category, found,avatar_URL, posturl;
 
 	public LoadMoreAsyncTask(long offset, FragmentActivity activity,
 			StaggeredGridView mGridView, ArrayList<Custom> listdata) {
@@ -111,6 +111,7 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 					
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
+					posturl = c.getString("URL");
 
 					JSONObject author=c.getJSONObject("author");
 					 avatar_URL=author.getString("avatar_URL");
@@ -118,7 +119,7 @@ public class LoadMoreAsyncTask extends AsyncTask<Void, Void, Void> {
 					System.out.println("Title--->" + title);
 					System.out.println("featured_image--->" + featured_image);
 
-					listdata.add(new Custom(title, featured_image,avatar_URL));
+					listdata.add(new Custom(title, featured_image,avatar_URL,posturl ));
 
 				}
 

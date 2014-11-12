@@ -43,7 +43,7 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 	StaggeredGridView mGridView;
 	HomePageAdapter homePageadpter;
 	ArrayList<Custom> listdata;
-	String title, featured_image, category,avatar_URL;
+	String title, featured_image, category, posturl, avatar_URL;
 	
 
 	public GetlatestPostAsynctask(FragmentActivity activity, ImageView iv,
@@ -108,13 +108,14 @@ public class GetlatestPostAsynctask extends AsyncTask<Void, Void, Void>
 					
 					title = c.getString("title");
 					featured_image = c.getString("featured_image");
+					posturl = c.getString("URL");
 					JSONObject author=c.getJSONObject("author");
 					 avatar_URL=author.getString("avatar_URL");
 						
 					System.out.println("Title--->" + title);
 					System.out.println("featured_image--->" + featured_image);
 
-					listdata.add(new Custom(title, featured_image,avatar_URL));
+					listdata.add(new Custom(title, featured_image,avatar_URL,posturl));
 
 				}
 
